@@ -1,3 +1,9 @@
-<p>
-  category-item works!
-</p>
+<div class="row" *ngIf="categoryItem">
+    <div class="col-9">
+        {{categoryItem.name}}
+    </div>
+    <div class="col-3">
+        <button class="float-right btn btn-danger">Delete</button>
+        <button class="float-right btn btn-primary">Edit</button>
+    </div>
+</div>

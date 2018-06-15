@@ -1,3 +1,6 @@
-<p>
-  categories-list works!
-</p>
+<app-category-form></app-category-form>
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let item of categories">
+        <app-category-item [categoryItem]="item"></app-category-item>
+    </li>
+</ul>
