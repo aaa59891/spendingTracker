@@ -12,9 +12,10 @@ import { SpendingListComponent } from './components/spending-list/spending-list.
 import { CategoriesListComponent } from './components/categories-list/categories-list.component';
 import { CategoryItemComponent } from './components/category-item/category-item.component';
 import { CategoryFormComponent } from './components/category-form/category-form.component';
+import { DropdownBS4Directive } from './directives/dropdown.directive';
 
 @NgModule({
-    declarations: [AppComponent, HomeComponent, NavbarComponent, SpendingListComponent, CategoriesListComponent, CategoryItemComponent, CategoryFormComponent],
+    declarations: [AppComponent, HomeComponent, NavbarComponent, SpendingListComponent, CategoriesListComponent, CategoryItemComponent, CategoryFormComponent, DropdownBS4Directive],
     imports: [
         BrowserModule,
         RoutesModule,

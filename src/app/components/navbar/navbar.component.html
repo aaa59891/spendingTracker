@@ -9,7 +9,13 @@
         <ul class="navbar-nav mr-auto">
             <ng-container *ngIf="isLogin | async">
                 <li class="nav-item" routerLinkActive="active">
-                    <a class="nav-link" [routerLink]="['/']">Home</a>
+                    <a class="nav-link" [routerLink]="['/spending-list']">Spending List</a>
+                </li>
+                <li class="nav-item dropdown pointer noselect" appDropdownBS4 routerLinkActive="active">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Settings</a>
+                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 48px, 0px);">
+                        <a class="dropdown-item" [routerLink]="['/setting/category']">Category</a>
+                    </div>
                 </li>
             </ng-container>
         </ul>
