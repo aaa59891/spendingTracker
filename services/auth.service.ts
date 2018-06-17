@@ -24,4 +24,10 @@ export class AuthService {
             map((user) => user !== null)
         );
     }
+
+    getEmail(){
+        return this.afAuth.user.pipe(
+            map((user) => user? user.email: null)
+        );
+    }
 }

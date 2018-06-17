@@ -3,7 +3,13 @@
         {{categoryItem.name}}
     </div>
     <div class="col-3">
-        <button class="float-right btn btn-danger">Delete</button>
-        <button class="float-right btn btn-primary">Edit</button>
+        <button 
+            class="float-right btn btn-danger"
+            (click)="onDelete()"
+            >Delete</button>
+        <button 
+            class="float-right btn btn-primary"
+            (click)="onEdit()"
+            >Edit</button>
     </div>
 </div>

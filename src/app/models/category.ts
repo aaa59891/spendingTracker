@@ -1,5 +1,7 @@
-export class Category{
-    constructor(
-        public name
-    ){}
+import { IFirebaseModel } from "../shared/firebase/interfaces/IFirebaseModel";
+
+export class Category implements IFirebaseModel{
+    id: string;
+    email: string;
+    name: string;
 }
