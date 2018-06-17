@@ -15,9 +15,12 @@ import { CategoryItemComponent } from './components/category-item/category-item.
 import { CategoryFormComponent } from './components/category-form/category-form.component';
 import { DropdownBS4Directive } from './directives/dropdown.directive';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { SpendingItemComponent } from './components/spending-item/spending-item.component';
+import { SpendingFormComponent } from './components/spending-form/spending-form.component';
+import { Error404Component } from './components/error404/error404.component';
 
 @NgModule({
-    declarations: [AppComponent, HomeComponent, NavbarComponent, SpendingListComponent, CategoriesListComponent, CategoryItemComponent, CategoryFormComponent, DropdownBS4Directive],
+    declarations: [AppComponent, HomeComponent, NavbarComponent, SpendingListComponent, CategoriesListComponent, CategoryItemComponent, CategoryFormComponent, DropdownBS4Directive, SpendingItemComponent, SpendingFormComponent, Error404Component],
     imports: [
         BrowserModule,
         ReactiveFormsModule,

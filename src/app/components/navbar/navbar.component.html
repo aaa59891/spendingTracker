@@ -8,8 +8,12 @@
     <div class="collapse navbar-collapse" id="navbarColor03">
         <ul class="navbar-nav mr-auto">
             <ng-container *ngIf="isLogin | async">
-                <li class="nav-item" routerLinkActive="active">
-                    <a class="nav-link" [routerLink]="['/spending-list']">Spending List</a>
+                <li class="nav-item dropdown pointer noselect" appDropdownBS4 routerLinkActive="active">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Spending</a>
+                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 48px, 0px);">
+                        <a class="dropdown-item" [routerLink]="['/spending/records']">Records</a>
+                        <a class="dropdown-item" [routerLink]="['/spending/add']">Add</a>
+                    </div>
                 </li>
                 <li class="nav-item dropdown pointer noselect" appDropdownBS4 routerLinkActive="active">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Settings</a>
