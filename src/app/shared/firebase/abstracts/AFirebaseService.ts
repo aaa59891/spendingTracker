@@ -7,17 +7,17 @@ export abstract class AFirebaseService<T extends IFirebaseModel>{
         protected db: AngularFirestore
     ){}
     
-    protected addModel(model: T){
+    addModel(model: T){
         model.id = this.db.createId();
         return this.collection.doc(model.id).set(model);
     }
 
-    protected updateModel(model: T){
+    updateModel(model: T){
         return this.getErrorMsg(model.id)
             .then(() => this.getFirebaseDoc(model.id).update(model));
     }
     
-    protected deleteModel(id: string){
+    deleteModel(id: string){
         return this.getErrorMsg(id)
             .then(() => this.getFirebaseDoc(id).delete());
     }

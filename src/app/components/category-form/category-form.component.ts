@@ -15,7 +15,6 @@ import { Subscription } from "rxjs";
 export class CategoryFormComponent extends AutoUnsubscribe implements OnInit {
     protected subscriptions: Subscription[] = [];
     form: FormGroup;
-    private email: string;
     formMode: EFormMode = EFormMode.Add;
     mode = EFormMode;
     private emptyForm = {name: '', id: null};
@@ -45,13 +44,14 @@ export class CategoryFormComponent extends AutoUnsubscribe implements OnInit {
         }
         switch(this.formMode){
             case EFormMode.Add:
-                this.categoryService.addCategory(this.form.value)
+                this.categoryService.addModel(this.form.value)
                     .then(() => {
                         this.form.patchValue(this.emptyForm);
                     })
                 break;
             case EFormMode.Edit:
-                this.categoryService.updateCategory(this.form.value);
+                this.categoryService.updateModel(this.form.value)
+                    .catch((err) => alert('This category does not exist.'))
                 break;
         }
     }

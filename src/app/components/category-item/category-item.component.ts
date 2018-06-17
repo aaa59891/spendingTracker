@@ -17,7 +17,7 @@ export class CategoryItemComponent implements OnInit {
     ngOnInit() {}
 
     onDelete(){
-        this.categoryService.deleteCategory(this.categoryItem.id);
+        this.categoryService.deleteModel(this.categoryItem.id);
     }
 
     onEdit(){

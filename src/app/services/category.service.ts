@@ -40,16 +40,4 @@ export class CategoryService extends AFirebaseService<Category> {
         );
     }
 
-    addCategory(category: Category) {
-        return this.addModel(category);
-    }
-
-    updateCategory(category: Category){
-        return this.updateModel(category)
-            .catch((err) => alert('This category does not exist.'));
-    }
-
-    deleteCategory(id: string){
-        return this.deleteModel(id);
-    }
 }
