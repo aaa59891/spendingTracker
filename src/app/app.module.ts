@@ -18,16 +18,19 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SpendingItemComponent } from './components/spending-item/spending-item.component';
 import { SpendingFormComponent } from './components/spending-form/spending-form.component';
 import { Error404Component } from './components/error404/error404.component';
-
+import { SpendingSearchFormComponent } from './components/spending-search-form/spending-search-form.component';
+import { DlDateTimePickerDateModule } from 'angular-bootstrap-datetimepicker';
 @NgModule({
-    declarations: [AppComponent, HomeComponent, NavbarComponent, SpendingListComponent, CategoriesListComponent, CategoryItemComponent, CategoryFormComponent, DropdownBS4Directive, SpendingItemComponent, SpendingFormComponent, Error404Component],
+    declarations: [AppComponent, HomeComponent, NavbarComponent, SpendingListComponent, CategoriesListComponent, CategoryItemComponent, CategoryFormComponent, DropdownBS4Directive, SpendingItemComponent, SpendingFormComponent, Error404Component, SpendingSearchFormComponent],
     imports: [
         BrowserModule,
+        FormsModule,
         ReactiveFormsModule,
         RoutesModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireAuthModule,
-        AngularFirestoreModule
+        AngularFirestoreModule,
+        DlDateTimePickerDateModule
     ],
     providers: [],
     bootstrap: [AppComponent]

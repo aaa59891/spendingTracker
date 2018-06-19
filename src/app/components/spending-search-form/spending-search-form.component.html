@@ -1,0 +1,81 @@
+<form>
+    <div class="text-center">
+        <div class="custom-control custom-radio custom-control-inline">
+            <input 
+                type="radio" 
+                class="custom-control-input" 
+                id="radioDay" 
+                name="dateMode" 
+                [checked]="selectedMode === dateMode.Day"
+                (change)="onModeChange(dateMode.Day)"
+                >
+            <label class="custom-control-label" for="radioDay">Day</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input 
+                type="radio" 
+                class="custom-control-input" 
+                id="radioMonth" 
+                name="dateMode" 
+                [checked]="selectedMode === dateMode.Month"
+                (change)="onModeChange(dateMode.Month)"
+                >
+            <label class="custom-control-label" for="radioMonth">Month</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input 
+                type="radio" 
+                class="custom-control-input" 
+                id="radioCustom" 
+                name="dateMode" 
+                [checked]="selectedMode === dateMode.Custom"
+                (change)="onModeChange(dateMode.Custom)"
+                >
+            <label class="custom-control-label" for="radioCustom">Custom</label>
+        </div>
+    </div>
+    <div class="form-inline justify-content-center">
+        <ng-container *ngIf="selectedMode === dateMode.Custom">
+            <div class="custom-control custom-control-inline">
+                <label for="start">Start: </label>
+                <input 
+                    type="date" 
+                    id="start" 
+                    name="start" 
+                    class="form-control mx-2" 
+                    [value]="start | date:'yyyy-MM-dd'"
+                    (input)="onStartInput($event)"
+                    >
+                <label for="end">End: </label>
+                <input 
+                    type="date" 
+                    name="end" 
+                    id="end" 
+                    class="form-control mx-2" 
+                    [value]="end | date:'yyyy-MM-dd'"
+                    (input)="end = $event.target.valueAsDate"
+                    >
+            </div>
+        </ng-container>
+        <dl-date-time-picker 
+            [hidden]="selectedMode === dateMode.Custom || selectedMode === dateMode.Month"
+            maxView="year"
+            startView="day"
+            minView="day" 
+            (change)="onDatePickerChange($event)"
+            #datePicker
+            style="width: 100%"
+            ></dl-date-time-picker>
+        <dl-date-time-picker 
+            [hidden]="selectedMode === dateMode.Custom || selectedMode === dateMode.Day"
+            maxView="year" 
+            startView="month"
+            minView="month"
+            (change)="onMonthPickerChange($event)"
+            #monthPicker
+            style="width: 100%"
+            ></dl-date-time-picker>
+        <button class="btn btn-primary" type="button" (click)="onSearch()">Search</button>
+
+    </div>
+</form>

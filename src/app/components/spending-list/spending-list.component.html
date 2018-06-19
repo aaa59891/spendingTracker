@@ -1,3 +1,18 @@
-<p>
-  spending-list works!
-</p>
+<app-spending-search-form></app-spending-search-form>
+<hr>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let spending of record">
+            <td>{{spending.date}}</td>
+            <td>{{spending.amount}}</td>
+            <td>{{spending.category.name}}</td>
+        </tr>
+    </tbody>
+</table>

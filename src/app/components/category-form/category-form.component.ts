@@ -4,8 +4,8 @@ import { CategoryService } from "../../services/category.service";
 import { Category } from "../../models/category";
 import { AuthService } from "services/auth.service";
 import { AutoUnsubscribe } from "../../shared/autoUnsubscribe";
-import { EFormMode } from "../../shared/eFormMode";
 import { Subscription } from "rxjs";
+import { EFormMode } from "../../shared/enums/eFormMode";
 
 @Component({
     selector: "app-category-form",

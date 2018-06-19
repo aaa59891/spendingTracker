@@ -8,6 +8,7 @@ import { AuthService } from "services/auth.service";
 import { map } from "rxjs/operators";
 import { SpendingService } from "../../services/spending.service";
 import * as moment from 'moment';
+import { EDateFormat } from "../../shared/enums/eDateFormat";
 
 @Component({
     selector: "app-spending-form",
@@ -52,7 +53,7 @@ export class SpendingFormComponent extends AutoUnsubscribe implements OnInit {
             id: new FormControl(null),
             amount: new FormControl(null),
             category: new FormControl(null),
-            date: new FormControl(moment().format('YYYY-MM-DD')),
+            date: new FormControl(moment().format(EDateFormat.Date)),
             comment: new FormControl(null),
             email: new FormControl(null)
         });
