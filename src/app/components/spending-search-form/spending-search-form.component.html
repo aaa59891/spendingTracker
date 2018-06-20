@@ -5,9 +5,9 @@
                 type="radio" 
                 class="custom-control-input" 
                 id="radioDay" 
-                name="dateMode" 
-                [checked]="selectedMode === dateMode.Day"
-                (change)="onModeChange(dateMode.Day)"
+                name="dateMode"
+                [value]="dateMode.Day"
+                [(ngModel)]="selectedMode" 
                 >
             <label class="custom-control-label" for="radioDay">Day</label>
         </div>
@@ -17,8 +17,8 @@
                 class="custom-control-input" 
                 id="radioMonth" 
                 name="dateMode" 
-                [checked]="selectedMode === dateMode.Month"
-                (change)="onModeChange(dateMode.Month)"
+                [value]="dateMode.Month"
+                [(ngModel)]="selectedMode" 
                 >
             <label class="custom-control-label" for="radioMonth">Month</label>
         </div>
@@ -26,56 +26,58 @@
             <input 
                 type="radio" 
                 class="custom-control-input" 
-                id="radioCustom" 
+                id="radioRange" 
                 name="dateMode" 
-                [checked]="selectedMode === dateMode.Custom"
-                (change)="onModeChange(dateMode.Custom)"
+                [value]="dateMode.Range"
+                [(ngModel)]="selectedMode" 
                 >
-            <label class="custom-control-label" for="radioCustom">Custom</label>
+            <label class="custom-control-label" for="radioRange">Range</label>
         </div>
     </div>
     <div class="form-inline justify-content-center">
-        <ng-container *ngIf="selectedMode === dateMode.Custom">
+        <ng-container *ngIf="selectedMode === dateMode.Day">
+            <input 
+                class="form-control" 
+                name="date" 
+                [(ngModel)]="date"
+                mode="day"
+                [dpDayPicker]="pickerConfig" 
+                theme="dp-material"
+                />
+        </ng-container>
+        <ng-container *ngIf="selectedMode === dateMode.Month">
+            <input 
+                class="form-control" 
+                name="month" 
+                [(ngModel)]="month"
+                mode="month"
+                [dpDayPicker]="monthPickerConfig" 
+                theme="dp-material"
+                />
+        </ng-container>
+        <ng-container *ngIf="selectedMode === dateMode.Range">
             <div class="custom-control custom-control-inline">
-                <label for="start">Start: </label>
+                <label for="from">From: </label>
                 <input 
-                    type="date" 
-                    id="start" 
-                    name="start" 
+                    id="from" 
+                    name="from" 
                     class="form-control mx-2" 
-                    [value]="start | date:'yyyy-MM-dd'"
-                    (input)="onStartInput($event)"
+                    [(ngModel)]="from"
+                    theme="dp-material"
+                    [dpDayPicker]="pickerConfig" 
                     >
-                <label for="end">End: </label>
+                <label for="end">To: </label>
                 <input 
-                    type="date" 
-                    name="end" 
-                    id="end" 
+                    name="to" 
+                    id="to" 
                     class="form-control mx-2" 
-                    [value]="end | date:'yyyy-MM-dd'"
-                    (input)="end = $event.target.valueAsDate"
+                    [(ngModel)]="to"
+                    theme="dp-material"
+                    [dpDayPicker]="pickerConfig" 
                     >
             </div>
         </ng-container>
-        <dl-date-time-picker 
-            [hidden]="selectedMode === dateMode.Custom || selectedMode === dateMode.Month"
-            maxView="year"
-            startView="day"
-            minView="day" 
-            (change)="onDatePickerChange($event)"
-            #datePicker
-            style="width: 100%"
-            ></dl-date-time-picker>
-        <dl-date-time-picker 
-            [hidden]="selectedMode === dateMode.Custom || selectedMode === dateMode.Day"
-            maxView="year" 
-            startView="month"
-            minView="month"
-            (change)="onMonthPickerChange($event)"
-            #monthPicker
-            style="width: 100%"
-            ></dl-date-time-picker>
+        
         <button class="btn btn-primary" type="button" (click)="onSearch()">Search</button>
-
     </div>
 </form>

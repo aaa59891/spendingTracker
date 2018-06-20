@@ -13,7 +13,7 @@ import { EDateFormat } from "../shared/enums/eDateFormat";
 })
 export class SpendingService extends AFirebaseService<Spending> {
     protected collectionName: string = 'spendings';
-    spendingSubject = new Subject<{start: Date, end: Date}>();
+    spendingSubject = new Subject<{from: Date, to: Date}>();
 
     constructor(
         private af: AngularFirestore,
@@ -22,7 +22,9 @@ export class SpendingService extends AFirebaseService<Spending> {
         super(af);
     }
 
-    getSpendingRecord(start: Date, end: Date){
+    getSpendingRecord(from: Date, to: Date){
+        console.log(from);
+        console.log(to);
         return this.authService.getEmail().pipe(
             switchMap(email => {
                 if(!email){
@@ -32,8 +34,8 @@ export class SpendingService extends AFirebaseService<Spending> {
                     this.collectionName,
                     ref => ref
                         .where('email', '==', email)
-                        .where('date', '>=', moment(start).format(EDateFormat.Date))
-                        .where('date', '<=', moment(end).format(EDateFormat.Date))
+                        .where('date', '>=', moment(from).format(EDateFormat.Date))
+                        .where('date', '<=', moment(to).format(EDateFormat.Date))
                         .orderBy('date')
                         .orderBy('amount', 'desc')
                 ).valueChanges();

@@ -23,7 +23,7 @@ export class SpendingListComponent extends AutoUnsubscribe implements OnInit {
         this.subscriptions.push(
             this.spendingService.spendingSubject.pipe(
                 switchMap(duration => {
-                    return this.spendingService.getSpendingRecord(duration.start, duration.end);
+                    return this.spendingService.getSpendingRecord(duration.from, duration.to);
                 })
             ).subscribe((record) => this.record = record)
         )

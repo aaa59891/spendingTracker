@@ -1,16 +1,17 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterContentInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { EDateFormat } from '../../shared/enums/eDateFormat';
 import { SpendingService } from '../../services/spending.service';
 import { AutoUnsubscribe } from '../../shared/autoUnsubscribe';
-import { DlDateTimePickerComponent } from 'angular-bootstrap-datetimepicker';
 import { DateUtils } from '../../shared/utils/dateUtils';
 import { Spending } from '../../models/spending';
+import * as moment from 'moment';
+import { IDatePickerConfig, DatePickerDirective, SingleCalendarValue } from 'ng2-date-picker';
 
 enum DateMode{
     Day = 'day',
     Month = 'month',
-    Customer = 'customer'
+    Range = 'range'
 }
 
 @Component({
@@ -18,16 +19,29 @@ enum DateMode{
   templateUrl: './spending-search-form.component.html',
   styleUrls: ['./spending-search-form.component.css']
 })
-export class SpendingSearchFormComponent extends AutoUnsubscribe implements OnInit, AfterViewInit {
+export class SpendingSearchFormComponent extends AutoUnsubscribe implements OnInit, AfterContentInit {
     protected subscriptions: Subscription[] = [];
-    @ViewChild('datePicker') datePicker: DlDateTimePickerComponent<Date>;
-    @ViewChild('monthPicker') monthPicker: DlDateTimePickerComponent<Date>;
     dateMode = DateMode;
-    start = new Date();
-    end = new Date();
+
+    defaultDate = moment().format(EDateFormat.Date);
+    from = this.defaultDate;
+    to = this.defaultDate;
+    month = moment().format(EDateFormat.Month);
+    date = this.defaultDate;
+
     record: Spending[];
+
     selectedMode = DateMode.Day;
 
+    pickerConfig: IDatePickerConfig = {
+        format: EDateFormat.Date
+    }
+
+    monthPickerConfig: IDatePickerConfig = {
+        format: EDateFormat.Month
+    }
+
+    @ViewChild('picker') picker: DatePickerDirective
     constructor(
         private spendingService: SpendingService
     ) {
@@ -35,59 +49,53 @@ export class SpendingSearchFormComponent extends AutoUnsubscribe implements OnIn
     }
     
     ngOnInit() {
-        // this.spendingService.spendingSubject.next(this.getDuration());
+        this.onSearch();
     }
     
-    ngAfterViewInit(): void {
-        this.datePicker.value = this.start;
-        this.monthPicker.value = this.start;
+    ngAfterContentInit(): void {
     }
-    
+
     onSearch(){
-        this.spendingService.spendingSubject.next(this.getDuration());
-    }
-
-    onStartInput(event){
-        this.start = event.target.valueAsDate;
-        this.datePicker.value = this.start;
-        this.monthPicker.value = this.start;
-    }
-
-    onMonthPickerChange(dtp: DlDateTimePickerComponent<Date>){
-        if(this.selectedMode === DateMode.Month){
-            this.start = DateUtils.getFirstDay(dtp.value);
-            this.end = DateUtils.getLastDay(dtp.value);
-        }
-    }
-
-    onDatePickerChange(dtp: DlDateTimePickerComponent<Date>){
-        if(this.selectedMode === DateMode.Day){
-            this.start = dtp.value;
-            this.end = dtp.value;
-        }
-    }
-
-    onModeChange(mode: DateMode){
-        switch(mode){
+        switch(this.selectedMode){
             case DateMode.Day:
-                this.datePicker.value = this.start;
+                this.searchRecordByDate();
                 break;
             case DateMode.Month:
-                this.monthPicker.value = this.start;
+                this.searchRecordByMonth();
                 break;
-            case DateMode.Customer:
+            case DateMode.Range:
+                this.searchRecordByRange();
                 break;
-        }
-        this.selectedMode = mode;
-    }
-
-    private getDuration(){
-        return {
-            start: this.start,
-            end: this.end
         }
     }
 
+    private searchRecordByDate(){
+        this.spendingService.spendingSubject.next({
+            from: moment(this.date, EDateFormat.Date).toDate(),
+            to: moment(this.date, EDateFormat.Date).toDate()
+        });
+    }
+
+    private searchRecordByMonth(){
+        let firstDay = DateUtils.getFirstDay(moment(this.month, EDateFormat.Month).toDate());
+        let lastDay = DateUtils.getLastDay(firstDay);
+
+        this.spendingService.spendingSubject.next({
+            from: firstDay,
+            to: lastDay
+        });
+    }
+
+    private searchRecordByRange(){
+        this.spendingService.spendingSubject.next({
+            from: moment(this.from, EDateFormat.Date).toDate(),
+            to: moment(this.to, EDateFormat.Date).toDate()
+        });
+    }
+
+    private getDuration(from: Date, to: Date){
+        return {from, to};
+    }
     get startView(){
         return this.selectedMode === DateMode.Month? 'month': 'day';
     }

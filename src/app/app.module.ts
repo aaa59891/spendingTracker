@@ -19,7 +19,8 @@ import { SpendingItemComponent } from './components/spending-item/spending-item.
 import { SpendingFormComponent } from './components/spending-form/spending-form.component';
 import { Error404Component } from './components/error404/error404.component';
 import { SpendingSearchFormComponent } from './components/spending-search-form/spending-search-form.component';
-import { DlDateTimePickerDateModule } from 'angular-bootstrap-datetimepicker';
+import { DpDatePickerModule } from 'ng2-date-picker';
+
 @NgModule({
     declarations: [AppComponent, HomeComponent, NavbarComponent, SpendingListComponent, CategoriesListComponent, CategoryItemComponent, CategoryFormComponent, DropdownBS4Directive, SpendingItemComponent, SpendingFormComponent, Error404Component, SpendingSearchFormComponent],
     imports: [
@@ -30,7 +31,7 @@ import { DlDateTimePickerDateModule } from 'angular-bootstrap-datetimepicker';
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireAuthModule,
         AngularFirestoreModule,
-        DlDateTimePickerDateModule
+        DpDatePickerModule
     ],
     providers: [],
     bootstrap: [AppComponent]
